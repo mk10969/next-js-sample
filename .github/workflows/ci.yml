@@ -1,0 +1,19 @@
+name: ci
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '15.x'
+      - name: install
+        run: yarn install --frozen-lockfile
+      - name: build
+        run: yarn build
+      - name: test
+        run: yarn test-all
