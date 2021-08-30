@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 
-type Props = {
+interface Props {
   label?: string;
   onUpdated: (count: number) => void;
-};
+}
 
-export function MyComponent(props: Props): JSX.Element {
+export default function UIComponent(props: Props): JSX.Element {
   const [count, setCount] = useState(0);
   const { label, onUpdated } = props;
 
@@ -33,6 +33,6 @@ export function MyComponent(props: Props): JSX.Element {
   );
 }
 
-MyComponent.defaultProps = {
+UIComponent.defaultProps = {
   label: 'push',
 };
