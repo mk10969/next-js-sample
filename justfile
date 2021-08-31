@@ -4,18 +4,30 @@ set dotenv-load := true
 
 
 ##### variables ######
-APP_VERSION := "v1.0.0"
+APP_NAME := `cat package.json | jq .name`
+APP_VERSION := `cat package.json | jq .version`
 
 
 ##### commands ######
-build:
-  yarn build
-
-dev: build
-  yarn dev
+app:
+    @echo {{ APP_NAME }}
 
 version:
     @echo {{ APP_VERSION }}
+
+
+maskedlm-build:
+    wasm-pack build maskedlm -d ../wasm
+
+maskedlm-clean:
+    rm -fr ./wasm/*
+
+build:
+    yarn build
+
+dev: build
+    yarn dev
+
 
 tag:
     git tag -a {{ APP_VERSION }} -m 'version up'
