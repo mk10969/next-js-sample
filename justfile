@@ -1,14 +1,17 @@
 ##### set env #####
+
 set shell := ["bash", "-uc"]
 set dotenv-load := true
 
 
 ##### variables ######
+
 APP_NAME := `cat package.json | jq .name`
 APP_VERSION := `cat package.json | jq .version`
 
 
 ##### commands ######
+
 app:
     @echo {{ APP_NAME }}
 
