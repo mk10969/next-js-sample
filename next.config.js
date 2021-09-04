@@ -4,6 +4,7 @@ module.exports = {
     config.experiments = {
       asyncWebAssembly: true,
     };
+    // hash 使えない。。。(´･ω･`)
     config.output.webassemblyModuleFilename =
       (isServer ? '../' : '') + 'static/wasm/webassembly.wasm';
     return config;

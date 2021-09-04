@@ -6,21 +6,10 @@ use tokenizers::tokenizer::{AddedToken, EncodeInput, Encoding, Result, Tokenizer
 use tokenizers::*;
 use tract_onnx::prelude::tract_ndarray::*;
 use tract_onnx::prelude::*;
-use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
 pub fn predict_masked_words(word: &str) -> String {
     panic::set_hook(Box::new(console_error_panic_hook::hook));
     run_predict(word).unwrap()
-}
-
-#[wasm_bindgen]
-pub fn sums(value: i32) -> i32 {
-    let mut a: i32 = 0;
-    for i in 1..value + 1 {
-        a += i;
-    }
-    a
 }
 
 fn run_predict(word: &str) -> Result<String> {
@@ -33,13 +22,13 @@ fn run_predict(word: &str) -> Result<String> {
 
 fn create_tokenizer() -> Result<Tokenizer> {
     // Normalizer
-    let normalizer = normalizers::bert::BertNormalizer::new(true, false, Some(false), false);
+    let normalizer = normalizers::bert::BertNormalizer::new(true, false, false, false);
 
     // PreTokenizer
     let pre_tokenizer = pre_tokenizers::bert::BertPreTokenizer;
 
     // Model
-    let vocab_str = include_str!("../libs/vocab.txt");
+    let vocab_str = include_str!("../vocab.txt");
     let mut vocab = HashMap::new();
     for (index, line) in vocab_str.lines().enumerate() {
         vocab.insert(line.trim_end().to_owned(), index as u32);
@@ -56,13 +45,13 @@ fn create_tokenizer() -> Result<Tokenizer> {
         processors::bert::BertProcessing::new(("[SEP]".into(), 102), ("[CLS]".into(), 101));
 
     // build Tokenizer
-    let mut tokenizer = Tokenizer::new(wordpiece);
-    tokenizer.with_normalizer(normalizer);
-    tokenizer.with_pre_tokenizer(pre_tokenizer);
-    tokenizer.with_post_processor(post_processor);
+    let mut tokenizer = Tokenizer::new(Box::new(wordpiece));
+    tokenizer.with_normalizer(Box::new(normalizer));
+    tokenizer.with_pre_tokenizer(Box::new(pre_tokenizer));
+    tokenizer.with_post_processor(Box::new(post_processor));
 
     // add [MASK] token
-    let mask_token = AddedToken::from("[MASK]", false).single_word(true);
+    let mask_token = AddedToken::from("[MASK]".into()).single_word(true);
     tokenizer.add_special_tokens(&[mask_token]);
 
     // tokenize
@@ -97,7 +86,7 @@ fn create_input_tensor(encoding: &Encoding) -> Result<TVec<Tensor>> {
 
 fn inference(input_tensor: TVec<Tensor>, seq_length: usize) -> Result<Array<f32, Dim<[usize; 2]>>> {
     // load model
-    let onnx_model = include_bytes!("../libs/bert-masked.onnx");
+    let onnx_model = include_bytes!("../bert-masked.onnx");
     let model = tract_onnx::onnx()
         .model_for_read(&mut BufReader::new(&onnx_model[..]))?
         .with_input_fact(

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { sums } from '../wasm/maskedlm_bg.wasm';
+import { sum } from '../wasm/pkg/wasm_sample_bg.wasm';
 
 export default function Sum() {
   const [value, setValue] = useState(0);
@@ -8,7 +8,7 @@ export default function Sum() {
       <input
         onChange={(e) => {
           const v = Number(e.target.value);
-          !isNaN(v) && setValue(sums(v));
+          !isNaN(v) && setValue(sum(v));
         }}
       />
       <div>{value}</div>

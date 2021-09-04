@@ -3,22 +3,14 @@ name = "maskedlm"
 version = "0.1.0"
 edition = "2018"
 description = '''
-sample WebAssembly.
+sample maskedlm
 '''
 license = "xxx"
 repository = ""
 
 
 [dependencies]
-tokenizers = "0.11.0"
+tokenizers = "0.10.1"
 tract-onnx = "0.15.3"
-wasm-bindgen = "0.2.76"
 console_error_panic_hook = "0.1.6"
 
-
-[lib]
-crate-type = ["cdylib"]
-
-
-[package.metadata.wasm-pack.profile.release]
-wasm-opt = false
