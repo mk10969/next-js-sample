@@ -1,9 +1,8 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles({
   root: {
@@ -26,28 +25,34 @@ const useStyles = makeStyles({
   },
 });
 
-const widgetNames = {
+const widgetNames: any = {
   a: 'Line Chart',
   b: 'Area Chart',
   c: 'Bar Chart',
   d: 'Scatter Chart',
 };
 
-export default function Widget({ id, onRemoveItem, component: Item }) {
+interface WidgetProps {
+  id: string;
+  onRemoveItem: (name: string) => void;
+  component: any;
+}
+
+export default function Widget(props: WidgetProps) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <div className={classes.header}>
         <Typography variant='h6' gutterBottom>
-          {widgetNames[id]}
+          {widgetNames[props.id]}
         </Typography>
         <div className={classes.spacer} />
-        <IconButton aria-label='delete' onClick={() => onRemoveItem(id)}>
+        <IconButton aria-label='delete' onClick={() => props.onRemoveItem(props.id)}>
           <CloseIcon fontSize='small' />
         </IconButton>
       </div>
       <div className={classes.body}>
-        <Item />
+        <props.component />
       </div>
     </Card>
   );

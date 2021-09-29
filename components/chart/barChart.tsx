@@ -55,7 +55,7 @@ const data = [
   },
 ];
 
-export default function Chart() {
+export default function Chart(): JSX.Element {
   return (
     <ResponsiveContainer width='99%' height='99%'>
       <BarChart

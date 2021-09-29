@@ -1,5 +1,6 @@
 // webAssembly file nameをhashにすると、buildこける。
 module.exports = {
+  disDir: '.next',
   webpack: (config, { isServer }) => {
     config.experiments = {
       asyncWebAssembly: true,

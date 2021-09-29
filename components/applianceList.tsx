@@ -1,5 +1,4 @@
-import { Appliance } from './appliance';
-import ApplianceCard from './appliance';
+import ApplianceCard, { Appliance } from './appliance';
 
 interface ApplianceListProps {
   appliances: Appliance[];

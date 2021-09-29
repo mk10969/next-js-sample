@@ -55,7 +55,7 @@ const data = [
   },
 ];
 
-export default function Chart() {
+export default function Chart(): JSX.Element {
   return (
     <ResponsiveContainer width='99%' height='99%'>
       <LineChart
@@ -72,12 +72,7 @@ export default function Chart() {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line
-          type='monotone'
-          dataKey='pv'
-          stroke='#8884d8'
-          activeDot={{ r: 8 }}
-        />
+        <Line type='monotone' dataKey='pv' stroke='#8884d8' activeDot={{ r: 8 }} />
         <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
       </LineChart>
     </ResponsiveContainer>

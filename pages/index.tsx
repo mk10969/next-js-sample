@@ -1,17 +1,14 @@
+import { GetStaticProps } from 'next';
 import ApplianceList from '../components/content';
+import GridContent from '../components/grid-layout/content';
 import WasmComponent from '../components/wasmSample';
-
-// import GridContent from '../components/grid-layout/content';
-// import { GetStaticProps } from 'next';
 
 export default function Home(): JSX.Element {
   return (
     <>
-      {/* <ApplianceList />
-      <hr /> */}
-
-      <WasmComponent />
-      <ApplianceList />
+      {/* <WasmComponent /> */}
+      <GridContent />
+      {/* <ApplianceList /> */}
     </>
   );
 }

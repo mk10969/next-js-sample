@@ -1,13 +1,13 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormLabel from '@material-ui/core/FormLabel';
 import IconButton from '@material-ui/core/IconButton';
+import Popover from '@material-ui/core/Popover';
+import { makeStyles } from '@material-ui/core/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   popup: {
@@ -15,23 +15,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const widgetNames = {
+const widgetNames: any = {
   a: 'Line Chart',
   b: 'Area Chart',
   c: 'Bar Chart',
   d: 'Scatter Chart',
 };
 
-export default function AddList({
-  items,
-  onRemoveItem,
-  onAddItem,
-  originalItems,
-}) {
+interface AddListProps {
+  items: any;
+  onRemoveItem: (name: string) => void;
+  onAddItem: (name: string) => void;
+  originalItems: any[];
+}
+
+export default function AddList(props: AddListProps) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -42,11 +44,11 @@ export default function AddList({
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     if (e.target.checked) {
-      onAddItem(e.target.name);
+      props.onAddItem(e.target.name);
     } else {
-      onRemoveItem(e.target.name);
+      props.onRemoveItem(e.target.name);
     }
   };
 
@@ -73,14 +75,10 @@ export default function AddList({
           <FormControl component='fieldset'>
             <FormLabel component='legend'>Select Widgets</FormLabel>
             <FormGroup>
-              {originalItems.map((i) => (
+              {props.originalItems.map((i) => (
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      checked={items.includes(i)}
-                      onChange={handleChange}
-                      name={i}
-                    />
+                    <Checkbox checked={props.items.includes(i)} onChange={handleChange} name={i} />
                   }
                   label={widgetNames[i]}
                   key={i}

@@ -1,5 +1,5 @@
-import { AppProps } from 'next/dist/shared/lib/router/router';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { AppProps } from 'next/dist/shared/lib/router/router';
 // using grid layout
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';

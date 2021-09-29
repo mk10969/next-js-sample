@@ -54,7 +54,7 @@ const data = [
   },
 ];
 
-export default function Chart() {
+export default function Chart(): JSX.Element {
   return (
     <ResponsiveContainer width='99%' height='99%'>
       <AreaChart
@@ -70,27 +70,9 @@ export default function Chart() {
         <XAxis dataKey='name' />
         <YAxis />
         <Tooltip />
-        <Area
-          type='monotone'
-          dataKey='uv'
-          stackId='1'
-          stroke='#8884d8'
-          fill='#8884d8'
-        />
-        <Area
-          type='monotone'
-          dataKey='pv'
-          stackId='1'
-          stroke='#82ca9d'
-          fill='#82ca9d'
-        />
-        <Area
-          type='monotone'
-          dataKey='amt'
-          stackId='1'
-          stroke='#ffc658'
-          fill='#ffc658'
-        />
+        <Area type='monotone' dataKey='uv' stackId='1' stroke='#8884d8' fill='#8884d8' />
+        <Area type='monotone' dataKey='pv' stackId='1' stroke='#82ca9d' fill='#82ca9d' />
+        <Area type='monotone' dataKey='amt' stackId='1' stroke='#ffc658' fill='#ffc658' />
       </AreaChart>
     </ResponsiveContainer>
   );

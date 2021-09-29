@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout';
 
-import TopBar from './topBar';
-import Widget from './widget';
 import AreaChart from '../chart/areaChart';
 import BarChart from '../chart/barChart';
 import LineChart from '../chart/lineChart';
 import ScatterChart from '../chart/scatterChart';
+import TopBar from './topBar';
+import Widget from './widget';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-const originalItems = ['a', 'b', 'c', 'd'];
+const originalItems: string[] = ['a', 'b', 'c', 'd'];
 
-const initialLayouts = {
+const initialLayouts: Layouts = {
   lg: [
     { w: 6, h: 6, x: 0, y: 0, i: 'a', moved: false, static: false },
     { w: 3, h: 6, x: 9, y: 0, i: 'b', moved: false, static: false },
@@ -21,7 +21,7 @@ const initialLayouts = {
   ],
 };
 
-const componentList = {
+const componentList: any = {
   a: LineChart,
   b: AreaChart,
   c: BarChart,
@@ -30,9 +30,7 @@ const componentList = {
 
 export default function Content() {
   const [items, setItems] = useState<string[]>(originalItems);
-  const [layouts, setLayouts] = useState<Layouts>(
-    getFromLS('layouts') || initialLayouts
-  );
+  const [layouts, setLayouts] = useState<Layouts>(getFromLS('layouts') || initialLayouts);
   const onLayoutChange = (_: any, allLayouts: Layouts) => {
     setLayouts(allLayouts);
   };
@@ -65,16 +63,8 @@ export default function Content() {
         onLayoutChange={onLayoutChange}
       >
         {items.map((key) => (
-          <div
-            key={key}
-            className='widget'
-            data-grid={{ w: 3, h: 2, x: 0, y: Infinity }}
-          >
-            <Widget
-              id={key}
-              onRemoveItem={onRemoveItem}
-              component={componentList[key]}
-            />
+          <div key={key} className='widget' data-grid={{ w: 3, h: 2, x: 0, y: Infinity }}>
+            <Widget id={key} onRemoveItem={onRemoveItem} component={componentList[key]} />
           </div>
         ))}
       </ResponsiveGridLayout>
@@ -83,10 +73,15 @@ export default function Content() {
 }
 
 function getFromLS(key: string) {
-  let ls = {};
+  let ls: any = {};
   if (global.localStorage) {
     try {
-      ls = JSON.parse(global.localStorage.getItem('rgl-8')) || {};
+      const item: string | null = global.localStorage.getItem('rgl-8');
+      if (item === null) {
+        throw new Error('null');
+      } else {
+        ls = JSON.parse(item) || {};
+      }
     } catch (e) {
       console.error(e);
     }

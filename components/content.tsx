@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Layouts, Responsive, WidthProvider } from 'react-grid-layout';
-import { Appliance } from './appliance';
-import ApplianceCard from './appliance';
+import ApplianceCard, { Appliance } from './appliance';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -91,11 +90,7 @@ export default function Content() {
         onLayoutChange={onLayoutChange}
       >
         {items.map((item) => (
-          <div
-            key={item.key}
-            className='widget'
-            data-grid={{ w: 3, h: 2, x: 1, y: Infinity }}
-          >
+          <div key={item.key} className='widget' data-grid={{ w: 3, h: 2, x: 1, y: Infinity }}>
             <ApplianceCard appliance={item.appliance} />
           </div>
         ))}

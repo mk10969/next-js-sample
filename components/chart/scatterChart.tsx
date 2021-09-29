@@ -18,7 +18,7 @@ const data = [
   { x: 110, y: 280, z: 200 },
 ];
 
-export default function Chart() {
+export default function Chart(): JSX.Element {
   return (
     <ResponsiveContainer width='99%' height='99%'>
       <ScatterChart

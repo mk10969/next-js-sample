@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# check lint
+yarn lint
+# fix format
+yarn format
+# check type-check
+yarn type-check
