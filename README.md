@@ -1,1 +1,1 @@
-# ouchi-web
+# nextjs-sample
